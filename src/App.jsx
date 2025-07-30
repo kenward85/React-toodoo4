@@ -1,4 +1,6 @@
+// src/App.jsx
 import './App.css'
+import TodoForm from './TodoForm' // <-- ✅ Import TodoForm
 
 function App() {
   const todos = [
@@ -10,6 +12,7 @@ function App() {
   return (
     <div>
       <h1>Todo List</h1>
+      <TodoForm /> {/* <-- ✅ Add form here */}
       <ul>
         {todos.map(todo => (
           <li key={todo.id}>{todo.title}</li>
@@ -20,4 +23,5 @@ function App() {
 }
 
 export default App
+
 
