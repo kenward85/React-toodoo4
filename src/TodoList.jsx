@@ -15,7 +15,7 @@ function TodoList({ todoList, onCompleteTodo, onUpdateTodo }) {
               key={todo.id}
               todo={todo}
               onCompleteTodo={onCompleteTodo}
-              onUpdateTodo={onUpdateTodo}   {/* 👈 added */}
+              onUpdateTodo={onUpdateTodo}  
             />
           ))}
         </ul>
