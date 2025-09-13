@@ -1,9 +1,14 @@
-import { useState } from "react";
-import TextInputWithLabel from "../../shared/TextInputWithLabel.jsx";
+import { useEffect, useState } from "react";
+
 
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
+
+  // 🔁 Keep local input in sync if the prop changes (optimistic update edge case)
+  useEffect(() => {
+    setWorkingTitle(todo.title);
+  }, [todo]);
 
   function handleEdit(e) {
     setWorkingTitle(e.target.value);
@@ -19,7 +24,10 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
     if (!isEditing) return;
 
     const trimmed = workingTitle.trim();
-    if (!trimmed) return;
+    if (!trimmed || trimmed === todo.title) {
+      setIsEditing(false);
+      return;
+    }
 
     onUpdateTodo({ ...todo, title: trimmed });
     setIsEditing(false);
@@ -30,7 +38,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
       <form onSubmit={handleUpdate}>
         {isEditing ? (
           <>
-            <TextInputWithLabel
+            <input
               elementId={`edit-${todo.id}`}
               label="Todo"
               value={workingTitle}
@@ -40,7 +48,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
               <button type="button" onClick={handleCancel}>
                 Cancel
               </button>
-              <button type="button" onClick={handleUpdate}>
+              <button type="submit" disabled={workingTitle.trim() === ""}>
                 Update
               </button>
             </div>
@@ -49,8 +57,9 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
           <>
             <input
               type="checkbox"
-              checked={todo.isCompleted}
+              checked={!!todo.isCompleted}
               onChange={() => onCompleteTodo(todo.id)}
+              aria-label={`Mark "${todo.title}" complete`}
             />
             <span
               style={{ marginLeft: "0.5rem", cursor: "pointer" }}
@@ -67,6 +76,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
 }
 
 export default TodoListItem;
+
 
 
 
