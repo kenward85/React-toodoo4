@@ -1,21 +1,16 @@
-// src/features/TodoList/TodoList.jsx
 import TodoListItem from "./TodoListItem.jsx";
 
 function TodoList({ todoList, isLoading, onCompleteTodo, onUpdateTodo }) {
-  if (isLoading) {
-    return <p>Todo list loading...</p>;
-  }
-
-  if (todoList.length === 0) {
+  if (isLoading) return <p>Todo list loading...</p>;
+  if (!isLoading && todoList.length === 0)
     return <p>Add todo above to get started</p>;
-  }
 
-  // Keep filtering if you want completed items hidden:
-  const filteredTodoList = todoList.filter((todo) => !todo.isCompleted);
+  // hide completed items (per earlier assignment behavior)
+  const filtered = todoList.filter((t) => !t.isCompleted);
 
   return (
     <ul>
-      {filteredTodoList.map((todo) => (
+      {filtered.map((todo) => (
         <TodoListItem
           key={todo.id}
           todo={todo}
@@ -28,3 +23,4 @@ function TodoList({ todoList, isLoading, onCompleteTodo, onUpdateTodo }) {
 }
 
 export default TodoList;
+

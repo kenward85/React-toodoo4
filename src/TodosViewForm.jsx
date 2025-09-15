@@ -1,4 +1,5 @@
-// src/TodosViewForm.jsx
+import { useEffect, useState } from "react";
+
 function TodosViewForm({
   sortField,
   setSortField,
@@ -7,6 +8,22 @@ function TodosViewForm({
   queryString,
   setQueryString,
 }) {
+  // local debounced state
+  const [localQueryString, setLocalQueryString] = useState(queryString);
+
+  // keep local input synced if parent changes externally
+  useEffect(() => {
+    setLocalQueryString(queryString);
+  }, [queryString]);
+
+  // debounce: only push to parent after 500ms of no typing
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setQueryString(localQueryString);
+    }, 500);
+    return () => clearTimeout(debounce);
+  }, [localQueryString, setQueryString]);
+
   const preventRefresh = (e) => e.preventDefault();
 
   return (
@@ -16,11 +33,15 @@ function TodosViewForm({
         <input
           id="search"
           type="text"
-          value={queryString}
-          onChange={(e) => setQueryString(e.target.value)}
+          value={localQueryString}
+          onChange={(e) => setLocalQueryString(e.target.value)}
           placeholder="Search titles…"
         />
-        <button type="button" onClick={() => setQueryString("")} style={{ marginLeft: "0.5rem" }}>
+        <button
+          type="button"
+          onClick={() => setLocalQueryString("")}
+          style={{ marginLeft: "0.5rem" }}
+        >
           Clear
         </button>
       </div>
@@ -53,3 +74,4 @@ function TodosViewForm({
 }
 
 export default TodosViewForm;
+
