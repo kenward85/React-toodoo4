@@ -4,10 +4,7 @@ import TodoForm from "./TodoForm.jsx";
 import TodoList from "./TodoList.jsx";
 import TodosViewForm from "./TodosViewForm.jsx";
 
-// ENV → .env.local
-// VITE_PAT=your_airtable_token
-// VITE_BASE_ID=your_base_id
-// VITE_TABLE_NAME=Todos
+
 const baseId = import.meta.env.VITE_BASE_ID;
 const table = encodeURIComponent(import.meta.env.VITE_TABLE_NAME || "Todos");
 const baseUrl = `https://api.airtable.com/v0/${baseId}/${table}`;
