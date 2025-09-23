@@ -1,0 +1,15 @@
+/* TodoList.module.css */
+
+/* Styles for the entire todo list container */
+.list {
+  list-style: none;   /* removes default bullets */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Optional: give some spacing around the list */
+.listContainer {
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
