@@ -1,15 +1,34 @@
-/* TodoList.module.css */
+/* TodoListItem.module.css */
 
-/* Styles for the entire todo list container */
-.list {
-  list-style: none;   /* removes default bullets */
-  margin: 0;
-  padding: 0;
-  width: 100%;
+/* Each todo item container */
+.item {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dfe6e9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* Optional: give some spacing around the list */
-.listContainer {
-  margin-top: 1rem;
-  padding: 0.5rem;
+/* Remove border on last item */
+.item:last-child {
+  border-bottom: none;
+}
+
+/* Todo title text */
+.title {
+  flex: 1;
+  margin-left: 0.5rem;
+  text-align: left;
+  color: #2d3436;
+}
+
+/* Completed todo */
+.done {
+  text-decoration: line-through;
+  color: #636e72;
+}
+
+/* Small padding at bottom for spacing */
+.item {
+  padding-bottom: 0.75rem;
 }
