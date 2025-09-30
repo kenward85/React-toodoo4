@@ -1,0 +1,11 @@
+.list {
+  list-style: none;   /* removes bullets */
+  margin: 0;          /* eliminate default margin */
+  padding: 0;         /* eliminate default padding */
+  width: 100%;
+}
+
+/* Optional container wrapper */
+.listContainer {
+  margin-top: 1rem;
+}

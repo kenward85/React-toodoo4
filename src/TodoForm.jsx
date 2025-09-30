@@ -1,40 +1,50 @@
-import { useRef, useState } from "react";
+import { useState } from "react"
+import styled from "styled-components";
 
-function TodoForm({ onAddTodo }) {
-  const [workingTodoTitle, setWorkingTodoTitle] = useState("");
-  const todoTitleInput = useRef(null);
+const StyledForm = styled.form`
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+`;
 
-  function handleAddTodo(event) {
-    event.preventDefault();
+const StyledInput = styled.input`
+  flex: 1;
+  padding: 0.5rem;
+`;
 
-    const title = workingTodoTitle.trim();
-    if (!title) {
-      todoTitleInput.current?.focus();
-      return;
-    }
+const StyledButton = styled.button`
+  padding: 0.5rem 1rem;
 
-    onAddTodo(title);
-    setWorkingTodoTitle("");            // reset controlled input
-    todoTitleInput.current?.focus();    // keep focus for quick entry
+  &:disabled {
+    font-style: italic;
+    opacity: 0.6;
+  }
+`;
+
+function TodosForm({ onAddTodo, isSaving }) {
+  const [title, setTitle] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const trimmed = title.trim();
+    if(!trimmed) return;
+    await onAddTodo(trimmed)
+    setTitle ("");
   }
 
   return (
-    <form onSubmit={handleAddTodo}>
-      <input
-        type="text"
-        name="title"
-        ref={todoTitleInput}
-        placeholder="Type a new todo"
-        value={workingTodoTitle}                         // controlled
-        onChange={(e) => setWorkingTodoTitle(e.target.value)}
-      />
-      <button type="submit" disabled={workingTodoTitle.trim() === ""}>
-        Add Todo
-      </button>
-    </form>
+    <StyledForm onSubmit={handleSubmit}>
+      <StyledInput onChange = {(e) => setTitle(e.target.value) } type="text" placeholder="New todo..." />
+      <StyledButton type="submit" disabled={isSaving||title.trim().length==0}>
+        Add
+      </StyledButton>
+    </StyledForm>
   );
 }
 
-export default TodoForm;
+export default TodosForm;
+
+
+
 
 
