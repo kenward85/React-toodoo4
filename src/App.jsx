@@ -68,12 +68,11 @@ function App() {
           fields: {
             title,
             isCompleted: false,
-            createdTime: new Date().toISOString(),
           },
         },
       ],
     };
-    const url = encodeUrl();
+    const url = encodeUrl(); console.log (payload)
     const options = {
       method: "POST",
       headers: { Authorization: token, "Content-Type": "application/json" },
