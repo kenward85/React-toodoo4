@@ -1,28 +1,30 @@
-import TodoListItem from "./TodoListItem";
+// src/features/TodoList/TodoList.jsx
+import TodoListItem from "./TodoListItem.jsx";
 
-function TodoList({ todoList, onCompleteTodo }) {
-  // Filter out completed todos
-  const filteredTodoList = todoList.filter(todo => !todo.isCompleted);
+function TodoList({ todoList, isLoading, onCompleteTodo, onUpdateTodo }) {
+  if (isLoading) {
+    return <p>Todo list loading...</p>;
+  }
+
+  if (todoList.length === 0) {
+    return <p>Add todo above to get started</p>;
+  }
+
+  // Keep filtering if you want completed items hidden:
+  const filteredTodoList = todoList.filter((todo) => !todo.isCompleted);
 
   return (
-    <>
-      {todoList.length === 0 ? (
-        <p>Add todo above to get started</p>
-      ) : (
-        <ul>
-          {filteredTodoList.map((todo) => (
-            <TodoListItem
-              key={todo.id}
-              todo={todo}
-              onCompleteTodo={onCompleteTodo}
-            />
-          ))}
-        </ul>
-      )}
-    </>
+    <ul>
+      {filteredTodoList.map((todo) => (
+        <TodoListItem
+          key={todo.id}
+          todo={todo}
+          onCompleteTodo={onCompleteTodo}
+          onUpdateTodo={onUpdateTodo}
+        />
+      ))}
+    </ul>
   );
 }
 
 export default TodoList;
-
-
