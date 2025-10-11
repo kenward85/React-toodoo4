@@ -68,12 +68,11 @@ function App() {
           fields: {
             title,
             isCompleted: false,
-            createdTime: new Date().toISOString(),
           },
         },
       ],
     };
-    const url = encodeUrl();
+    const url = encodeUrl(); console.log (payload)
     const options = {
       method: "POST",
       headers: { Authorization: token, "Content-Type": "application/json" },
@@ -108,7 +107,6 @@ function App() {
           fields: {
             title: editedTodo.title,
             isCompleted: editedTodo.isCompleted,
-            createdTime: editedTodo.createdTime,
           },
         },
       ],
@@ -144,7 +142,6 @@ function App() {
           fields: {
             title: toggled.title,
             isCompleted: toggled.isCompleted,
-            createdTime: toggled.createdTime,
           },
         },
       ],
