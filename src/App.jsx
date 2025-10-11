@@ -143,7 +143,6 @@ function App() {
           fields: {
             title: toggled.title,
             isCompleted: toggled.isCompleted,
-            createdTime: toggled.createdTime,
           },
         },
       ],
