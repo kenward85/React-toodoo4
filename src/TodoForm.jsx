@@ -1,32 +1,27 @@
 import { useRef, useState } from "react";
 
-
 function TodoForm({ onAddTodo, isSaving }) {
   const [workingTodoTitle, setWorkingTodoTitle] = useState("");
   const todoTitleInput = useRef(null);
 
-  async function handleAddTodo(event) {
-    event.preventDefault();
-console.log("event", event)
+  async function handleAddTodo(e) {
+    e.preventDefault();
     const title = workingTodoTitle.trim();
     if (!title) {
       todoTitleInput.current?.focus();
-      console.log("event", event)
       return;
     }
-
-   
     await onAddTodo(title);
-
-    setWorkingTodoTitle("");            // reset controlled input
-    todoTitleInput.current?.focus();    // keep focus for quick entry
+    setWorkingTodoTitle("");
+    todoTitleInput.current?.focus();
   }
 
   return (
     <form onSubmit={handleAddTodo}>
-      <input 
-        elementId="newTodoTitle"
-        label="Todo"
+      <label htmlFor="newTodoTitle">Todo</label>{" "}
+      <input
+        id="newTodoTitle"
+        type="text"
         ref={todoTitleInput}
         value={workingTodoTitle}
         onChange={(e) => setWorkingTodoTitle(e.target.value)}

@@ -1,34 +1,24 @@
 import { useEffect, useState } from "react";
 
-
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
 
-  // 🔁 Keep local input in sync if the prop changes (optimistic update edge case)
+  // keep local title in sync if todo changes after save
   useEffect(() => {
     setWorkingTitle(todo.title);
   }, [todo]);
 
-  function handleEdit(e) {
-    setWorkingTitle(e.target.value);
-  }
-
   function handleCancel() {
-    setWorkingTitle(todo.title); // reset to original
+    setWorkingTitle(todo.title);
     setIsEditing(false);
   }
 
   function handleUpdate(e) {
     e.preventDefault();
     if (!isEditing) return;
-
     const trimmed = workingTitle.trim();
-    if (!trimmed || trimmed === todo.title) {
-      setIsEditing(false);
-      return;
-    }
-
+    if (!trimmed) return;
     onUpdateTodo({ ...todo, title: trimmed });
     setIsEditing(false);
   }
@@ -38,28 +28,29 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
       <form onSubmit={handleUpdate}>
         {isEditing ? (
           <>
+            <label htmlFor={`edit-${todo.id}`} style={{ display: "none" }}>
+              Edit Todo
+            </label>
             <input
-              elementId={`edit-${todo.id}`}
-              label="Todo"
+              id={`edit-${todo.id}`}
+              type="text"
               value={workingTitle}
-              onChange={handleEdit}
+              onChange={(e) => setWorkingTitle(e.target.value)}
             />
             <div style={{ marginTop: "0.5rem" }}>
               <button type="button" onClick={handleCancel}>
                 Cancel
               </button>
-              <button type="submit" disabled={workingTitle.trim() === ""}>
-                Update
-              </button>
+              <button type="submit">Update</button>
             </div>
           </>
         ) : (
           <>
             <input
               type="checkbox"
-              checked={!!todo.isCompleted}
+              checked={todo.isCompleted}
               onChange={() => onCompleteTodo(todo.id)}
-              aria-label={`Mark "${todo.title}" complete`}
+              aria-label={`Complete ${todo.title}`}
             />
             <span
               style={{ marginLeft: "0.5rem", cursor: "pointer" }}
@@ -76,6 +67,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
 }
 
 export default TodoListItem;
+
 
 
 
