@@ -107,7 +107,6 @@ function App() {
           fields: {
             title: editedTodo.title,
             isCompleted: editedTodo.isCompleted,
-            createdTime: editedTodo.createdTime,
           },
         },
       ],
