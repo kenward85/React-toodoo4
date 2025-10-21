@@ -34,7 +34,7 @@ function TodosForm({ onAddTodo, isSaving }) {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <StyledInput onChange = {(e) => setTitle(e.target.value) } type="text" placeholder="New todo..." />
+      <StyledInput onChange = {(e) => setTitle(e.target.value) } value = {title} type="text" placeholder="New todo..." />
       <StyledButton type="submit" disabled={isSaving||title.trim().length==0}>
         Add
       </StyledButton>

@@ -30,7 +30,7 @@ function App() {
     let searchQuery = "";
     if (queryString && queryString.trim() !== "") {
       const safe = queryString.replace(/"/g, '\\"');
-      searchQuery = `&filterByFormula=${encodeURIComponent(`SEARCH("${safe}", title)`)}`;
+      searchQuery = `&filterByFormula=SEARCH("${safe}",+title)`;
     }
     return encodeURI(`${baseUrl}?${sortQuery}${searchQuery}`);
   }, [sortField, sortDirection, queryString]);
