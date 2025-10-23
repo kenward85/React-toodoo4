@@ -1,4 +1,27 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* ✅ spacing between items */
+  margin-top: 1rem;
+`;
+
+const StyledRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const StyledInput = styled.input`
+  flex: 1;
+  padding: 0.5rem;
+`;
+
+const StyledSelect = styled.select`
+  padding: 0.25rem 0.5rem;
+`;
 
 function TodosViewForm({
   sortField,
@@ -8,15 +31,12 @@ function TodosViewForm({
   queryString,
   setQueryString,
 }) {
-  // local debounced state
   const [localQueryString, setLocalQueryString] = useState(queryString);
 
-  // keep local input synced if parent changes externally
   useEffect(() => {
     setLocalQueryString(queryString);
   }, [queryString]);
 
-  // debounce: only push to parent after 500ms of no typing
   useEffect(() => {
     const debounce = setTimeout(() => {
       setQueryString(localQueryString);
@@ -24,54 +44,44 @@ function TodosViewForm({
     return () => clearTimeout(debounce);
   }, [localQueryString, setQueryString]);
 
-  const preventRefresh = (e) => e.preventDefault();
-
   return (
-    <form onSubmit={preventRefresh}>
-      <div style={{ marginBottom: "0.75rem" }}>
-        <label htmlFor="search">Search todos: </label>
-        <input
+    <StyledForm onSubmit={(e) => e.preventDefault()}>
+      <StyledRow>
+        <label htmlFor="search">Search: </label>
+        <StyledInput
           id="search"
           type="text"
           value={localQueryString}
           onChange={(e) => setLocalQueryString(e.target.value)}
-          placeholder="Search titles…"
         />
-        <button
-          type="button"
-          onClick={() => setLocalQueryString("")}
-          style={{ marginLeft: "0.5rem" }}
-        >
+        <button type="button" onClick={() => setLocalQueryString("")}>
           Clear
         </button>
-      </div>
+      </StyledRow>
 
-      <div>
-        <label htmlFor="sortBy">Sort by </label>
-        <select
+      <StyledRow>
+        <label htmlFor="sortBy">Sort by:</label>
+        <StyledSelect
           id="sortBy"
           value={sortField}
           onChange={(e) => setSortField(e.target.value)}
         >
           <option value="title">Title</option>
           <option value="createdTime">Time added</option>
-        </select>
+        </StyledSelect>
 
-        <label htmlFor="direction" style={{ marginLeft: "1rem" }}>
-          Direction
-        </label>
-        <select
+        <label htmlFor="direction">Direction:</label>
+        <StyledSelect
           id="direction"
           value={sortDirection}
           onChange={(e) => setSortDirection(e.target.value)}
         >
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
-        </select>
-      </div>
-    </form>
+        </StyledSelect>
+      </StyledRow>
+    </StyledForm>
   );
 }
 
 export default TodosViewForm;
-
