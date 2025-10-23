@@ -1,0 +1,85 @@
+/* src/pages/TodosPage.css */
+
+/* Page container */
+.TodosPage {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  background-color: #fefefe;
+}
+
+/* Pagination controls */
+.paginationControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+  gap: 1rem;
+}
+
+/* Pagination buttons */
+.paginationControls button {
+  background-color: #43a047; /* medium green */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.paginationControls button:hover:not(:disabled) {
+  background-color: #2e7d32; /* darker green on hover */
+}
+
+.paginationControls button:disabled {
+  background-color: #c8e6c9; /* soft green when disabled */
+  color: #757575;
+  cursor: not-allowed;
+}
+
+/* Pagination page number */
+.paginationControls span {
+  color: #c0ca33; /* yellow-green accent */
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Todo list spacing */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+/* Todo items */
+li {
+  background-color: #f1f8e9; /* light green */
+  border: 1px solid #c0ca33; /* yellow-green border */
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li.completed {
+  text-decoration: line-through;
+  color: #9e9d24;
+  background-color: #f9fbe7;
+}
+
+/* Todo form */
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+form input[type="text"] {
+  padding: 0.5rem 0.75rem;
+  border: 2px sol
+}
