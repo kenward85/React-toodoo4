@@ -1,0 +1,36 @@
+.header {
+
+  position: relative; /* lets us position the nav without affecting <h1> */
+}
+
+/* Center the h1 */
+.title {
+  text-align: center;
+  margin: 1rem 0 2rem;
+}
+
+/* Position nav in the upper-right, side-by-side links */
+.nav {
+  position: fixed;
+  top: 0.65rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* Active link: subdued color (gray-ish) */
+.active {
+  color: #6b7280; /* gray-500 */
+  text-decoration: none;
+}
+
+/* Inactive link: primary text color */
+.inactive {
+  color: #111827; /* near-black */
+  text-decoration: none;
+}
+
+/* Optional: hover styles */
+.nav a:hover {
+  text-decoration: underline;
+}
