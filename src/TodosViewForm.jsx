@@ -42,7 +42,7 @@ function TodosViewForm({
       setQueryString(localQueryString);
     }, 500);
     return () => clearTimeout(debounce);
-  }, [localQueryString, setQueryString]);
+  }, [localQueryString,]);
 
   return (
     <StyledForm onSubmit={(e) => e.preventDefault()}>
